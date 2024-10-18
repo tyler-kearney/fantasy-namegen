@@ -60,6 +60,17 @@ const tieflingVirtueNames = ['Art', 'Carrion', 'Chant', 'Creed', 'Despair', 'Exc
 'Nowhere', 'Open', 'Poetry', 'Quest', 'Random', 'Reverence', 'Sorrow', 'Temerity', 'Torment', 'Weary'];
 
 // Filters
-function relevanceFilter(nameArr, relevanceScore) {
-    
+function relevanceFilter(nameArr, base, relevanceScore) {
+    let relevantNames = [];
+    nameArr.each( name => {        
+        let shared = 0
+        for (let i = 0; i < base.length; i++) {
+            if (name.includes(base[i])) {
+                shared++; 
+            }
+            if (shared >= relevanceScore) {
+                relevantNames.push(name);
+            }
+        }
+    });
 }
