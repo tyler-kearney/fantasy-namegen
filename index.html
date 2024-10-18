@@ -9,8 +9,50 @@
 </head>
 <body>
     <h1>Fantasy NameGen</h1>
-    <div class="form-group"></div>
-    <div class="form-group"></div>
+    <div class="form-group">
+        <label for="race">Race: </label>
+        <select id="race">
+            <option value="human">Human</option>
+            <option value="elf">Elf</option>
+            <option value="dwarf">Dwarf</option>
+            <option value="halfling">Halfling</option>
+            <option value="gnome">Gnome</option>
+            <option value="dragonborn">Dragonborn</option>
+            <option value="tiefling">Tiefling</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="gender">Which gender list do you want to pull names from?: </label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="both">Both</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="name-selection">Select which name to generate: </label>
+        <select id="name-selection">
+            <option value="first">First</option>
+            <option value="last">Last</option>
+            <option value="both">Both</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="firstname-base">Base First Name: </label>
+        <input type="text" id="firstname-base">
+        <label for="lastname-base">Last Name Base: </label>
+        <input type="text" id="lastname-base">
+    </div>
+    <div class="form-group">
+        <label for="relevance-score">Relevance Score (1-10): </label>
+        <input type="number" id="relevance-score" min="1" max="10">
+    </div>
+    <div class="form-group">
+        <label for="num-names">Number of names: </label>
+        <input type="number" id="num-names" min="1">
+    </div>
+    <button id="gen-btn">Generate names</button>
+    <div id="name-results"></div>
     <script src="scripts.js"></script>
 </body>
 </html>
