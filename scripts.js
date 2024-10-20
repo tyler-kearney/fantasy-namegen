@@ -1,5 +1,6 @@
 // The elements from the document. 
 const raceSelect = document.getElementById('race');
+const genderSelect = document.getElementById('gender');
 const nameSelect = document.getElementById('name-selection');
 const firstBaseIn = document.getElementById('firstname-base');
 const lastBaseIn = document.getElementById('lastname-base');
@@ -73,4 +74,115 @@ function relevanceFilter(nameArr, base, relevanceScore) {
             }
         }
     });
+    return relevantNames;
 }
+
+function genNames(nameArr, numNames) {
+    if (numNames > nameArr.length) {
+        nameOutput.innerHTML += "Warning, there are fewer names available than you requested. Giving best output.";
+    }
+
+    const randIndex = Array.from(Array(numNames), () => Math.floor(Math.random() * nameArr.length));
+    const randNames = randIndex.map(index => nameArr[index]);
+
+    return randNames;
+}
+
+// Event Listener
+genBtn.addEventListener('click', () => {
+    let baseFirst = firstBaseIn.value;
+    let baseLast = lastBaseIn.value;
+    let relevanceScore = relevanceScoreIn.value;
+    let race = raceSelect.value;
+    let gender = genderSelect.value;
+    let numNames = numNamesIn.value;
+    let output = "";
+    let firstNameArr = [];
+    let lastNameArr = []
+    let baseFirstArr = [];
+    let baseLastArr = [];
+
+    switch (race) {
+        case "human":
+            if (gender = "male") {
+                baseFirstArr = humanMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = humanFemaleNames;
+            } else {
+                baseFirstArr = humanMaleNames.concat(humanFemaleNames);
+            }
+            baseLastArr = humanSurnames;
+            break;
+        case "elf":
+            if (gender = "male") {
+                baseFirstArr = elfMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = elfFemaleNames;
+            } else {
+                baseFirstArr = elfMaleNames.concat(elfFemaleNames);
+            }
+            baseLastArr = elfFamilyNames;
+            break;
+        case "dwarf":
+            if (gender = "male") {
+                baseFirstArr = dwarfMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = dwarfFemaleNames;
+            } else {
+                baseFirstArr = dwarfMaleNames.concat(dwarfFemaleNames);
+            }
+            baseLastArr = dwarfClans;
+            break;
+        case "halfling":
+            if (gender = "male") {
+                baseFirstArr = halflingMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = halflingFemaleNames;
+            } else {
+                baseFirstArr = halflingMaleNames.concat(halflingFemaleNames);
+            }
+            baseLastArr = halflingFamilyNames;
+            break;
+        case "gnome":
+            if (gender = "male") {
+                baseFirstArr = gnomeMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = gnomeFemaleNames;
+            } else {
+                baseFirstArr = gnomeMaleNames.concat(gnomeFemaleNames);
+            }
+            baseLastArr = gnomeClanNames;
+            break;
+        case "dragonborn":
+            if (gender = "male") {
+                baseFirstArr = dragonbornMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = dragonbornFemaleNames;
+            } else {
+                baseFirstArr = dragonbornMaleNames.concat(dragonbornFemaleNames);
+            }
+            baseLastArr = dragonbornClanNames;
+            break;
+        case "tiefling":
+            if (gender = "male") {
+                baseFirstArr = tieflingMaleNames;
+            } else if (gender = female) {
+                baseFirstArr = tieflingFemaleNames;
+            } else {
+                baseFirstArr = tieflingMaleNames.concat(tieflingFemaleNames);
+            }
+            baseLastArr = tieflingVirtueNames;
+            break;
+    }
+    firstNameArr = relevanceFilter(baseFirstArr, baseFirst, relevanceScore);
+    lastNameArr = relevanceFilter(baseLastArr, baseLast, relevanceScore);
+    
+    firstNameArr = genNames(firstNameArr, numNames);
+    lastNameArr = genNames(lastNameArr, numNames);
+
+    for (let i = 0; i <= firstNameArr.length; i++) {
+        output += `${firstNameArr[i]} ${lastNameArr[i]}\n`;
+    }
+
+    nameOutput.innerHTML += output;
+});
