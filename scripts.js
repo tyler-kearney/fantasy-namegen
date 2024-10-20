@@ -7,6 +7,7 @@ const lastBaseIn = document.getElementById('lastname-base');
 const relevanceScoreIn = document.getElementById('relevance-score');
 const numNamesIn = document.getElementById('num-names');
 const genBtn = document.getElementById('gen-btn');
+const clearBtn = document.getElementById('clear-btn');
 const nameOutput = document.getElementById('name-results');
 
 // Arrays for each of the races
@@ -185,4 +186,8 @@ genBtn.addEventListener('click', () => {
     }
 
     nameOutput.innerHTML += output;
+});
+
+clearBtn.addEventListener('click', () => {
+    nameOutput.innerHTML = "";
 });
