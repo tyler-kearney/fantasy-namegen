@@ -66,8 +66,10 @@ function relevanceFilter(nameArr, base, relevanceScore) {
     let relevantNames = [];
     nameArr.forEach( name => {        
         let shared = 0
+        let compareName = name.toLowerCase();
+        let compareBase = base.toLowerCase();
         for (let i = 0; i < base.length; i++) {
-            if (name.includes(base[i])) {
+            if (compareName.includes(compareBase[i])) {
                 shared++; 
             }
             if (shared >= relevanceScore) {
@@ -80,11 +82,19 @@ function relevanceFilter(nameArr, base, relevanceScore) {
 
 function genNames(nameArr, numNames) {
     if (numNames > nameArr.length) {
-        nameOutput.innerHTML += "Warning, there are fewer names available than you requested. Giving best output.";
+        nameOutput.innerHTML += "<p>Warning, there are fewer names available than you requested. Giving best output.</p><hr><br>";
     }
 
-    const randIndex = Array.from(Array(numNames), () => Math.floor(Math.random() * nameArr.length));
-    const randNames = randIndex.map(index => nameArr[index]);
+    const randIndex = Array.from({ length: numNames }, (_, i) => Math.floor(Math.random() * nameArr.length));
+    const uniqueIndix = [...new Set(randIndex)];
+    const randNames = uniqueIndix.map(index => nameArr[index]);
+
+    randNames.forEach((cname, cindex) => {
+        if (cname === "undefined") {
+            const randomIndex = Math.floor(Math.random() * randNames.length);
+            randNames[cindex] = randNames[randomIndex];
+        }
+    });
 
     return randNames;
 }
@@ -181,8 +191,8 @@ genBtn.addEventListener('click', () => {
     firstNameArr = genNames(firstNameArr, numNames);
     lastNameArr = genNames(lastNameArr, numNames);
 
-    for (let i = 0; i <= firstNameArr.length; i++) {
-        output += `${firstNameArr[i]} ${lastNameArr[i]}\n`;
+    for (let i = 0; i <= numNames - 1; i++) {
+        output += `${firstNameArr[i]} ${lastNameArr[i]}<br><br>`;
     }
 
     nameOutput.innerHTML += output;
@@ -190,4 +200,8 @@ genBtn.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
     nameOutput.innerHTML = "";
+    firstBaseIn.value = "";
+    lastBaseIn.value = "";
+    relevanceScoreIn.value = 0;
+    numNamesIn.value = 0;
 });
