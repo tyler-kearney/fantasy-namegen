@@ -63,7 +63,7 @@ const tieflingVirtueNames = ['Art', 'Carrion', 'Chant', 'Creed', 'Despair', 'Exc
 // Filters
 function relevanceFilter(nameArr, base, relevanceScore) {
     let relevantNames = [];
-    nameArr.each( name => {        
+    nameArr.forEach( name => {        
         let shared = 0
         for (let i = 0; i < base.length; i++) {
             if (name.includes(base[i])) {
